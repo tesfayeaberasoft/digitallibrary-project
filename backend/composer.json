@@ -14,5 +14,14 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5"
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        },
+        "audit": {
+            "abandoned": "report",
+            "ignore": ["PKSA-y2cr-5h3j-g3ys"]
+        }
     }
 }
