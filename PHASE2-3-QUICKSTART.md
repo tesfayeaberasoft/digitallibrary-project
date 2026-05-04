@@ -4,11 +4,23 @@
 
 ### Step 1: Apply Database Migration (REQUIRED)
 
-```bash
-mysql -u root -p digital_library < database/schema-phase2-3.sql
+**For PowerShell (Windows):**
+```powershell
+Get-Content database/schema-phase2-3.sql | C:\xampp\mysql\bin\mysql.exe -u root digital_library
 ```
 
-Enter your MySQL password when prompted. This creates all Phase 2 & 3 tables.
+**For Command Prompt:**
+```cmd
+type database\schema-phase2-3.sql | C:\xampp\mysql\bin\mysql.exe -u root digital_library
+```
+
+**For MySQL Workbench:**
+1. Open MySQL Workbench
+2. Connect to your database
+3. File → Open SQL Script → Select `database/schema-phase2-3.sql`
+4. Click Execute (lightning bolt icon)
+
+This creates all Phase 2 & 3 tables.
 
 ### Step 2: Start Backend Server
 
