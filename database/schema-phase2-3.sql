@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS reservations (
     user_id INT NOT NULL,
     book_id INT NOT NULL,
     reservation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    expiry_date TIMESTAMP NOT NULL,
+    expiry_date DATETIME NOT NULL,
     status ENUM('pending', 'fulfilled', 'expired', 'cancelled') DEFAULT 'pending',
     queue_position INT,
     notified BOOLEAN DEFAULT FALSE,
@@ -141,10 +141,44 @@ CREATE TABLE IF NOT EXISTS libraries (
     INDEX idx_is_active (is_active)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Insert default library
+INSERT IGNORE INTO libraries (id, name, code, address, phone, email) 
+VALUES (1, 'Main Library', 'MAIN', 'Main Campus, Addis Ababa', '+251911234567', 'main@library.com');
+
 -- Add library_id to books table
 ALTER TABLE books ADD COLUMN IF NOT EXISTS library_id INT DEFAULT 1;
-ALTER TABLE books ADD FOREIGN KEY IF NOT EXISTS (library_id) REFERENCES libraries(id);
-ALTER TABLE books ADD INDEX IF NOT EXISTS idx_library_id (library_id);
+
+-- Insert default library first
+INSERT IGNORE INTO libraries (id, name, code, address, phone, email) 
+VALUES (1, 'Main Library', 'MAIN', 'Main Campus, Addis Ababa', '+251911234567', 'main@library.com');
+
+-- Add foreign key for library_id (only if it doesn't exist)
+SET @fk_exists = (SELECT COUNT(*) FROM information_schema.TABLE_CONSTRAINTS 
+    WHERE CONSTRAINT_SCHEMA = 'digital_library' 
+    AND TABLE_NAME = 'books' 
+    AND CONSTRAINT_NAME = 'books_ibfk_library');
+
+SET @sql = IF(@fk_exists = 0, 
+    'ALTER TABLE books ADD CONSTRAINT books_ibfk_library FOREIGN KEY (library_id) REFERENCES libraries(id)', 
+    'SELECT "Foreign key already exists"');
+
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+-- Add index for library_id (only if it doesn't exist)
+SET @idx_exists = (SELECT COUNT(*) FROM information_schema.STATISTICS 
+    WHERE TABLE_SCHEMA = 'digital_library' 
+    AND TABLE_NAME = 'books' 
+    AND INDEX_NAME = 'idx_library_id');
+
+SET @sql = IF(@idx_exists = 0, 
+    'ALTER TABLE books ADD INDEX idx_library_id (library_id)', 
+    'SELECT "Index already exists"');
+
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
 
 -- Book Transfers Table (Phase 3)
 CREATE TABLE IF NOT EXISTS book_transfers (
@@ -201,10 +235,6 @@ CREATE TABLE IF NOT EXISTS user_preferences (
 ALTER TABLE books ADD COLUMN IF NOT EXISTS average_rating DECIMAL(3, 2) DEFAULT 0.00;
 ALTER TABLE books ADD COLUMN IF NOT EXISTS total_reviews INT DEFAULT 0;
 ALTER TABLE books ADD COLUMN IF NOT EXISTS times_borrowed INT DEFAULT 0;
-
--- Insert default library
-INSERT IGNORE INTO libraries (id, name, code, address, phone, email) 
-VALUES (1, 'Main Library', 'MAIN', 'Main Campus, Addis Ababa', '+251911234567', 'main@library.com');
 
 -- Create indexes for performance
 CREATE INDEX IF NOT EXISTS idx_transactions_due_date ON transactions(due_date);
