@@ -18,9 +18,9 @@ class ReadingListController
     /**
      * Get all reading lists for the authenticated user
      */
-    public function index(Request $request)
+    public function index()
     {
-        $user = $request->user;
+        $user = $GLOBALS['auth_user'];
         
         $lists = $this->readingListModel->getUserLists($user['id']);
         
@@ -33,9 +33,9 @@ class ReadingListController
     /**
      * Get a specific reading list with books
      */
-    public function show(Request $request, $id)
+    public function show($id)
     {
-        $user = $request->user;
+        $user = $GLOBALS['auth_user'];
         
         $list = $this->readingListModel->getListWithBooks($id, $user['id']);
         
@@ -55,10 +55,10 @@ class ReadingListController
     /**
      * Create a new reading list
      */
-    public function create(Request $request)
+    public function create()
     {
-        $user = $request->user;
-        $data = $request->body();
+        $user = $GLOBALS['auth_user'];
+        $data = Request::all();
 
         // Validate input
         if (!isset($data['name']) || empty(trim($data['name']))) {
@@ -94,10 +94,10 @@ class ReadingListController
     /**
      * Update a reading list
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
-        $user = $request->user;
-        $data = $request->body();
+        $user = $GLOBALS['auth_user'];
+        $data = Request::all();
 
         $result = $this->readingListModel->update($id, $user['id'], $data);
 
@@ -117,9 +117,9 @@ class ReadingListController
     /**
      * Delete a reading list
      */
-    public function delete(Request $request, $id)
+    public function delete($id)
     {
-        $user = $request->user;
+        $user = $GLOBALS['auth_user'];
 
         $result = $this->readingListModel->delete($id, $user['id']);
 
@@ -139,10 +139,10 @@ class ReadingListController
     /**
      * Add a book to a reading list
      */
-    public function addBook(Request $request, $id)
+    public function addBook($id)
     {
-        $user = $request->user;
-        $data = $request->body();
+        $user = $GLOBALS['auth_user'];
+        $data = Request::all();
 
         if (!isset($data['book_id'])) {
             return Response::json([
@@ -174,9 +174,9 @@ class ReadingListController
     /**
      * Remove a book from a reading list
      */
-    public function removeBook(Request $request, $id, $bookId)
+    public function removeBook($id, $bookId)
     {
-        $user = $request->user;
+        $user = $GLOBALS['auth_user'];
 
         $result = $this->readingListModel->removeBook($id, $bookId, $user['id']);
 
@@ -196,10 +196,10 @@ class ReadingListController
     /**
      * Get public reading lists
      */
-    public function publicLists(Request $request)
+    public function publicLists()
     {
-        $limit = $request->query('limit', 20);
-        $offset = $request->query('offset', 0);
+        $limit = $_GET['limit'] ?? 20);
+        $offset = $_GET['offset'] ?? 0);
         
         $lists = $this->readingListModel->getPublicLists($limit, $offset);
         

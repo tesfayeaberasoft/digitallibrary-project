@@ -19,9 +19,9 @@ class ReportController
     /**
      * Get dashboard statistics
      */
-    public function dashboard(Request $request)
+    public function dashboard()
     {
-        $user = $request->user;
+        $user = $GLOBALS['auth_user'];
         
         if (!in_array($user['role'], ['admin', 'librarian'])) {
             return Response::json([
@@ -88,9 +88,9 @@ class ReportController
     /**
      * Get most popular books
      */
-    public function popularBooks(Request $request)
+    public function popularBooks()
     {
-        $user = $request->user;
+        $user = $GLOBALS['auth_user'];
         
         if (!in_array($user['role'], ['admin', 'librarian'])) {
             return Response::json([
@@ -99,7 +99,7 @@ class ReportController
             ], 403);
         }
 
-        $limit = $request->query('limit', 10);
+        $limit = $_GET['limit'] ?? 10);
 
         $stmt = $this->db->prepare("
             SELECT b.*, 
@@ -125,9 +125,9 @@ class ReportController
     /**
      * Get most active users
      */
-    public function activeUsers(Request $request)
+    public function activeUsers()
     {
-        $user = $request->user;
+        $user = $GLOBALS['auth_user'];
         
         if (!in_array($user['role'], ['admin', 'librarian'])) {
             return Response::json([
@@ -136,7 +136,7 @@ class ReportController
             ], 403);
         }
 
-        $limit = $request->query('limit', 10);
+        $limit = $_GET['limit'] ?? 10);
 
         $stmt = $this->db->prepare("
             SELECT u.id, u.name, u.email,
@@ -163,9 +163,9 @@ class ReportController
     /**
      * Get overdue report
      */
-    public function overdue(Request $request)
+    public function overdue()
     {
-        $user = $request->user;
+        $user = $GLOBALS['auth_user'];
         
         if (!in_array($user['role'], ['admin', 'librarian'])) {
             return Response::json([
@@ -199,9 +199,9 @@ class ReportController
     /**
      * Get fine revenue report
      */
-    public function revenue(Request $request)
+    public function revenue()
     {
-        $user = $request->user;
+        $user = $GLOBALS['auth_user'];
         
         if (!in_array($user['role'], ['admin', 'librarian'])) {
             return Response::json([
@@ -210,7 +210,7 @@ class ReportController
             ], 403);
         }
 
-        $period = $request->query('period', 'month'); // day, week, month, year
+        $period = $_GET['period'] ?? 'month'); // day, week, month, year
 
         $dateFormat = match($period) {
             'day' => '%Y-%m-%d',
@@ -261,9 +261,9 @@ class ReportController
     /**
      * Get category statistics
      */
-    public function categoryStats(Request $request)
+    public function categoryStats()
     {
-        $user = $request->user;
+        $user = $GLOBALS['auth_user'];
         
         if (!in_array($user['role'], ['admin', 'librarian'])) {
             return Response::json([
@@ -294,9 +294,9 @@ class ReportController
     /**
      * Get monthly activity report
      */
-    public function monthlyActivity(Request $request)
+    public function monthlyActivity()
     {
-        $user = $request->user;
+        $user = $GLOBALS['auth_user'];
         
         if (!in_array($user['role'], ['admin', 'librarian'])) {
             return Response::json([
@@ -305,7 +305,7 @@ class ReportController
             ], 403);
         }
 
-        $months = $request->query('months', 12);
+        $months = $_GET['months'] ?? 12);
 
         $stmt = $this->db->prepare("
             SELECT DATE_FORMAT(created_at, '%Y-%m') as month,

@@ -18,9 +18,9 @@ class FineController
     /**
      * Get all fines for the authenticated user
      */
-    public function index(Request $request)
+    public function index()
     {
-        $user = $request->user;
+        $user = $GLOBALS['auth_user'];
         
         $fines = $this->fineModel->getUserFines($user['id']);
         
@@ -33,9 +33,9 @@ class FineController
     /**
      * Get all fines (Admin/Librarian only)
      */
-    public function all(Request $request)
+    public function all()
     {
-        $user = $request->user;
+        $user = $GLOBALS['auth_user'];
         
         if (!in_array($user['role'], ['admin', 'librarian'])) {
             return Response::json([
@@ -44,8 +44,8 @@ class FineController
             ], 403);
         }
 
-        $status = $request->query('status');
-        $userId = $request->query('user_id');
+        $status = $_GET['status'] ?? null;
+        $userId = $_GET['user_id'] ?? null;
         
         $fines = $this->fineModel->getAllFines($status, $userId);
         
@@ -58,9 +58,9 @@ class FineController
     /**
      * Get total unpaid fines for user
      */
-    public function total(Request $request)
+    public function total()
     {
-        $user = $request->user;
+        $user = $GLOBALS['auth_user'];
         
         $total = $this->fineModel->getTotalUnpaid($user['id']);
         
@@ -75,10 +75,10 @@ class FineController
     /**
      * Pay a fine
      */
-    public function pay(Request $request, $id)
+    public function pay($id)
     {
-        $user = $request->user;
-        $data = $request->body();
+        $user = $GLOBALS['auth_user'];
+        $data = Request::all();
 
         // Validate payment data
         if (!isset($data['payment_method'])) {
@@ -135,9 +135,9 @@ class FineController
     /**
      * Waive a fine (Admin/Librarian only)
      */
-    public function waive(Request $request, $id)
+    public function waive($id)
     {
-        $user = $request->user;
+        $user = $GLOBALS['auth_user'];
         
         if (!in_array($user['role'], ['admin', 'librarian'])) {
             return Response::json([
@@ -180,9 +180,9 @@ class FineController
     /**
      * Get fine statistics (Admin/Librarian only)
      */
-    public function statistics(Request $request)
+    public function statistics()
     {
-        $user = $request->user;
+        $user = $GLOBALS['auth_user'];
         
         if (!in_array($user['role'], ['admin', 'librarian'])) {
             return Response::json([

@@ -18,10 +18,10 @@ class ReviewController
     /**
      * Get all reviews for a book
      */
-    public function bookReviews(Request $request, $bookId)
+    public function bookReviews($bookId)
     {
-        $limit = $request->query('limit', 20);
-        $offset = $request->query('offset', 0);
+        $limit = $_GET['limit'] ?? 20);
+        $offset = $_GET['offset'] ?? 0);
         
         $reviews = $this->reviewModel->getBookReviews($bookId, $limit, $offset);
         
@@ -34,9 +34,9 @@ class ReviewController
     /**
      * Get all reviews by a user
      */
-    public function userReviews(Request $request)
+    public function userReviews()
     {
-        $user = $request->user;
+        $user = $GLOBALS['auth_user'];
         
         $reviews = $this->reviewModel->getUserReviews($user['id']);
         
@@ -49,10 +49,10 @@ class ReviewController
     /**
      * Create a review
      */
-    public function create(Request $request, $bookId)
+    public function create($bookId)
     {
-        $user = $request->user;
-        $data = $request->body();
+        $user = $GLOBALS['auth_user'];
+        $data = Request::all();
 
         // Validate input
         if (!isset($data['rating']) || $data['rating'] < 1 || $data['rating'] > 5) {
@@ -98,10 +98,10 @@ class ReviewController
     /**
      * Update a review
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
-        $user = $request->user;
-        $data = $request->body();
+        $user = $GLOBALS['auth_user'];
+        $data = Request::all();
 
         // Verify review belongs to user
         $review = $this->reviewModel->getById($id);
@@ -146,9 +146,9 @@ class ReviewController
     /**
      * Delete a review
      */
-    public function delete(Request $request, $id)
+    public function delete($id)
     {
-        $user = $request->user;
+        $user = $GLOBALS['auth_user'];
 
         // Verify review belongs to user or user is admin
         $review = $this->reviewModel->getById($id);
@@ -185,7 +185,7 @@ class ReviewController
     /**
      * Mark a review as helpful
      */
-    public function markHelpful(Request $request, $id)
+    public function markHelpful($id)
     {
         $review = $this->reviewModel->getById($id);
         
@@ -214,7 +214,7 @@ class ReviewController
     /**
      * Get review statistics for a book
      */
-    public function bookStatistics(Request $request, $bookId)
+    public function bookStatistics($bookId)
     {
         $stats = $this->reviewModel->getBookStatistics($bookId);
         

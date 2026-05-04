@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Core\Request;
 use App\Core\Response;
 use App\Models\Notification;
 
@@ -18,11 +17,11 @@ class NotificationController
     /**
      * Get all notifications for the authenticated user
      */
-    public function index(Request $request)
+    public function index()
     {
-        $user = $request->user;
-        $limit = $request->query('limit', 50);
-        $offset = $request->query('offset', 0);
+        $user = $GLOBALS['auth_user'];
+        $limit = $_GET['limit'] ?? 50;
+        $offset = $_GET['offset'] ?? 0;
         
         $notifications = $this->notificationModel->getUserNotifications(
             $user['id'],
@@ -39,9 +38,9 @@ class NotificationController
     /**
      * Get unread notification count
      */
-    public function unreadCount(Request $request)
+    public function unreadCount()
     {
-        $user = $request->user;
+        $user = $GLOBALS['auth_user'];
         
         $count = $this->notificationModel->getUnreadCount($user['id']);
         
@@ -56,9 +55,9 @@ class NotificationController
     /**
      * Get unread notifications
      */
-    public function unread(Request $request)
+    public function unread()
     {
-        $user = $request->user;
+        $user = $GLOBALS['auth_user'];
         
         $notifications = $this->notificationModel->getUnreadNotifications($user['id']);
         
@@ -71,9 +70,9 @@ class NotificationController
     /**
      * Mark a notification as read
      */
-    public function markAsRead(Request $request, $id)
+    public function markAsRead($id)
     {
-        $user = $request->user;
+        $user = $GLOBALS['auth_user'];
         
         // Verify notification belongs to user
         $notification = $this->notificationModel->getById($id);
@@ -110,9 +109,9 @@ class NotificationController
     /**
      * Mark all notifications as read
      */
-    public function markAllAsRead(Request $request)
+    public function markAllAsRead()
     {
-        $user = $request->user;
+        $user = $GLOBALS['auth_user'];
         
         $result = $this->notificationModel->markAllAsRead($user['id']);
 
@@ -128,9 +127,9 @@ class NotificationController
     /**
      * Delete a notification
      */
-    public function delete(Request $request, $id)
+    public function delete($id)
     {
-        $user = $request->user;
+        $user = $GLOBALS['auth_user'];
         
         // Verify notification belongs to user
         $notification = $this->notificationModel->getById($id);
@@ -167,9 +166,9 @@ class NotificationController
     /**
      * Delete all read notifications
      */
-    public function deleteAllRead(Request $request)
+    public function deleteAllRead()
     {
-        $user = $request->user;
+        $user = $GLOBALS['auth_user'];
         
         $count = $this->notificationModel->deleteAllRead($user['id']);
 
