@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Navbar from './components/Navbar';
+import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
@@ -31,75 +32,105 @@ const ProtectedRoute = ({ children, roles }) => {
   return children;
 };
 
+// Layout wrapper to conditionally show Navbar
+const Layout = ({ children, showNavbar }) => {
+  return (
+    <div className="App">
+      {showNavbar && <Navbar />}
+      {children}
+    </div>
+  );
+};
+
 function App() {
   return (
     <AuthProvider>
       <Router>
-        <div className="App">
-          <Navbar />
-          <main className="main-content">
-            <Routes>
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              
-              <Route
-                path="/dashboard"
-                element={
+        <Routes>
+          {/* Public Routes without Navbar */}
+          <Route path="/" element={<Layout showNavbar={false}><Home /></Layout>} />
+          <Route path="/login" element={<Layout showNavbar={false}><Login /></Layout>} />
+          <Route path="/register" element={<Layout showNavbar={false}><Register /></Layout>} />
+          
+          {/* Protected Routes with Navbar */}
+          <Route
+            path="/dashboard"
+            element={
+              <Layout showNavbar={true}>
+                <main className="main-content">
                   <ProtectedRoute>
                     <Dashboard />
                   </ProtectedRoute>
-                }
-              />
-              
-              <Route
-                path="/books"
-                element={
+                </main>
+              </Layout>
+            }
+          />
+          
+          <Route
+            path="/books"
+            element={
+              <Layout showNavbar={true}>
+                <main className="main-content">
                   <ProtectedRoute>
                     <Books />
                   </ProtectedRoute>
-                }
-              />
-              
-              <Route
-                path="/books/:id"
-                element={
+                </main>
+              </Layout>
+            }
+          />
+          
+          <Route
+            path="/books/:id"
+            element={
+              <Layout showNavbar={true}>
+                <main className="main-content">
                   <ProtectedRoute>
                     <BookDetails />
                   </ProtectedRoute>
-                }
-              />
-              
-              <Route
-                path="/transactions"
-                element={
+                </main>
+              </Layout>
+            }
+          />
+          
+          <Route
+            path="/transactions"
+            element={
+              <Layout showNavbar={true}>
+                <main className="main-content">
                   <ProtectedRoute>
                     <Transactions />
                   </ProtectedRoute>
-                }
-              />
-              
-              <Route
-                path="/profile"
-                element={
+                </main>
+              </Layout>
+            }
+          />
+          
+          <Route
+            path="/profile"
+            element={
+              <Layout showNavbar={true}>
+                <main className="main-content">
                   <ProtectedRoute>
                     <Profile />
                   </ProtectedRoute>
-                }
-              />
-              
-              <Route
-                path="/users"
-                element={
+                </main>
+              </Layout>
+            }
+          />
+          
+          <Route
+            path="/users"
+            element={
+              <Layout showNavbar={true}>
+                <main className="main-content">
                   <ProtectedRoute roles={['admin', 'librarian']}>
                     <Users />
                   </ProtectedRoute>
-                }
-              />
-              
-              <Route path="/" element={<Navigate to="/dashboard" />} />
-            </Routes>
-          </main>
-        </div>
+                </main>
+              </Layout>
+            }
+          />
+        </Routes>
       </Router>
     </AuthProvider>
   );

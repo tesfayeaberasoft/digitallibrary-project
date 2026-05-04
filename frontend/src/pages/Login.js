@@ -33,6 +33,11 @@ const Login = () => {
   return (
     <div className="auth-container">
       <div className="auth-card">
+        <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+          <Link to="/" style={{ color: '#3498db', textDecoration: 'none', fontSize: '14px', fontWeight: '600' }}>
+            ← Back to Home
+          </Link>
+        </div>
         <h1>Login to Digital Library</h1>
         <p className="auth-subtitle">Welcome back! Please login to your account.</p>
 
