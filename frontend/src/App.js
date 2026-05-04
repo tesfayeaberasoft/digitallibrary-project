@@ -9,6 +9,8 @@ import Dashboard from './pages/Dashboard';
 import Books from './pages/Books';
 import BookDetails from './pages/BookDetails';
 import Transactions from './pages/Transactions';
+import Reservations from './pages/Reservations';
+import Fines from './pages/Fines';
 import Profile from './pages/Profile';
 import Users from './pages/Users';
 import './App.css';
@@ -99,6 +101,32 @@ function App() {
                 <main className="main-content">
                   <ProtectedRoute>
                     <Transactions />
+                  </ProtectedRoute>
+                </main>
+              </Layout>
+            }
+          />
+          
+          <Route
+            path="/reservations"
+            element={
+              <Layout showNavbar={true}>
+                <main className="main-content">
+                  <ProtectedRoute>
+                    <Reservations />
+                  </ProtectedRoute>
+                </main>
+              </Layout>
+            }
+          />
+          
+          <Route
+            path="/fines"
+            element={
+              <Layout showNavbar={true}>
+                <main className="main-content">
+                  <ProtectedRoute>
+                    <Fines />
                   </ProtectedRoute>
                 </main>
               </Layout>

@@ -77,6 +77,57 @@ $router->group(['middleware' => 'auth'], function($router) {
     
     // Dashboard/Stats routes
     $router->get('/api/dashboard/stats', 'DashboardController@stats');
+    
+    // Reservation routes (Phase 2)
+    $router->post('/api/reservations', 'ReservationController@create');
+    $router->get('/api/reservations', 'ReservationController@index');
+    $router->delete('/api/reservations/{id}', 'ReservationController@cancel');
+    $router->get('/api/books/{id}/reservations', 'ReservationController@bookReservations');
+    
+    // Fine routes (Phase 2)
+    $router->get('/api/fines', 'FineController@index');
+    $router->get('/api/fines/total', 'FineController@total');
+    $router->post('/api/fines/{id}/pay', 'FineController@pay');
+    $router->post('/api/fines/{id}/waive', 'FineController@waive'); // Admin/Librarian only
+    $router->get('/api/fines/all', 'FineController@all'); // Admin/Librarian only
+    $router->get('/api/fines/statistics', 'FineController@statistics'); // Admin/Librarian only
+    
+    // Notification routes (Phase 2)
+    $router->get('/api/notifications', 'NotificationController@index');
+    $router->get('/api/notifications/unread', 'NotificationController@unread');
+    $router->get('/api/notifications/unread-count', 'NotificationController@unreadCount');
+    $router->put('/api/notifications/{id}/read', 'NotificationController@markAsRead');
+    $router->put('/api/notifications/read-all', 'NotificationController@markAllAsRead');
+    $router->delete('/api/notifications/{id}', 'NotificationController@delete');
+    $router->delete('/api/notifications/read-all', 'NotificationController@deleteAllRead');
+    
+    // Review routes (Phase 3)
+    $router->post('/api/books/{id}/reviews', 'ReviewController@create');
+    $router->get('/api/books/{id}/reviews', 'ReviewController@bookReviews');
+    $router->get('/api/books/{id}/reviews/statistics', 'ReviewController@bookStatistics');
+    $router->get('/api/reviews/user', 'ReviewController@userReviews');
+    $router->put('/api/reviews/{id}', 'ReviewController@update');
+    $router->delete('/api/reviews/{id}', 'ReviewController@delete');
+    $router->post('/api/reviews/{id}/helpful', 'ReviewController@markHelpful');
+    
+    // Reading List routes (Phase 3)
+    $router->get('/api/reading-lists', 'ReadingListController@index');
+    $router->get('/api/reading-lists/public', 'ReadingListController@publicLists');
+    $router->get('/api/reading-lists/{id}', 'ReadingListController@show');
+    $router->post('/api/reading-lists', 'ReadingListController@create');
+    $router->put('/api/reading-lists/{id}', 'ReadingListController@update');
+    $router->delete('/api/reading-lists/{id}', 'ReadingListController@delete');
+    $router->post('/api/reading-lists/{id}/books', 'ReadingListController@addBook');
+    $router->delete('/api/reading-lists/{id}/books/{bookId}', 'ReadingListController@removeBook');
+    
+    // Report routes (Phase 2 & 3) - Admin/Librarian only
+    $router->get('/api/reports/dashboard', 'ReportController@dashboard');
+    $router->get('/api/reports/popular-books', 'ReportController@popularBooks');
+    $router->get('/api/reports/active-users', 'ReportController@activeUsers');
+    $router->get('/api/reports/overdue', 'ReportController@overdue');
+    $router->get('/api/reports/revenue', 'ReportController@revenue');
+    $router->get('/api/reports/category-stats', 'ReportController@categoryStats');
+    $router->get('/api/reports/monthly-activity', 'ReportController@monthlyActivity');
 });
 
 // Handle 404

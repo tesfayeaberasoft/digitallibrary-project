@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import NotificationBell from './NotificationBell';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -33,6 +34,12 @@ const Navbar = () => {
           <Link to="/transactions" className="nav-link">
             My Transactions
           </Link>
+          <Link to="/reservations" className="nav-link">
+            Reservations
+          </Link>
+          <Link to="/fines" className="nav-link">
+            Fines
+          </Link>
           {(user.role === 'admin' || user.role === 'librarian') && (
             <Link to="/users" className="nav-link">
               Users
@@ -41,6 +48,7 @@ const Navbar = () => {
         </div>
 
         <div className="navbar-user">
+          <NotificationBell />
           <span className="user-name">
             {user.first_name} {user.last_name}
           </span>

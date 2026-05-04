@@ -1,0 +1,392 @@
+.fines-page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.page-header h1 {
+  font-size: 36px;
+  color: #1a2332;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.page-header p {
+  color: #666;
+  font-size: 16px;
+}
+
+.total-unpaid-card {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  color: white;
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  box-shadow: 0 8px 30px rgba(231, 76, 60, 0.3);
+  animation: slideIn 0.5s ease-out;
+}
+
+.total-icon {
+  font-size: 60px;
+}
+
+.total-info h3 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  opacity: 0.9;
+}
+
+.total-amount {
+  font-size: 42px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.fines-table-container {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+.fines-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.fines-table thead {
+  background: linear-gradient(135deg, #2c3e50, #1e4d5c);
+  color: white;
+}
+
+.fines-table th {
+  padding: 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.fines-table tbody tr {
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.2s;
+}
+
+.fines-table tbody tr:hover {
+  background: #f8f9fa;
+}
+
+.fines-table td {
+  padding: 16px;
+  font-size: 14px;
+  color: #333;
+}
+
+.book-cell strong {
+  color: #1a2332;
+  font-size: 15px;
+}
+
+.days-badge {
+  background: linear-gradient(135deg, #f39c12, #e67e22);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.amount {
+  color: #e74c3c;
+  font-size: 16px;
+}
+
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-block;
+}
+
+.status-unpaid {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  color: white;
+}
+
+.status-paid {
+  background: linear-gradient(135deg, #27ae60, #229954);
+  color: white;
+}
+
+.status-waived {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+}
+
+.paid-date {
+  color: #27ae60;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-content {
+  background: white;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #1a2332;
+}
+
+.modal-close {
+  background: transparent;
+  border: none;
+  font-size: 32px;
+  cursor: pointer;
+  color: #999;
+  transition: color 0.2s;
+  line-height: 1;
+}
+
+.modal-close:hover {
+  color: #333;
+}
+
+.modal-body {
+  padding: 24px;
+}
+
+.payment-summary {
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.payment-summary h3 {
+  margin: 0 0 8px 0;
+  color: #1a2332;
+  font-size: 18px;
+}
+
+.fine-reason {
+  color: #666;
+  margin: 0 0 12px 0;
+  font-size: 14px;
+}
+
+.fine-amount {
+  color: #e74c3c;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.form-group select,
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.form-group select:focus,
+.form-group input:focus {
+  outline: none;
+  border-color: #2c3e50;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.modal-actions .btn {
+  flex: 1;
+}
+
+.fines-info {
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border-radius: 16px;
+  padding: 32px;
+  margin-top: 40px;
+}
+
+.fines-info h3 {
+  color: #1a2332;
+  margin-bottom: 16px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.fines-info ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.fines-info li {
+  padding: 12px 0;
+  padding-left: 32px;
+  position: relative;
+  color: #555;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.fines-info li::before {
+  content: 'ℹ️';
+  position: absolute;
+  left: 0;
+  font-size: 18px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #2c3e50, #1e4d5c);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(44, 62, 80, 0.3);
+}
+
+.btn-secondary {
+  background: #95a5a6;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: #7f8c8d;
+}
+
+.btn-sm {
+  padding: 8px 16px;
+  font-size: 13px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .fines-table-container {
+    overflow-x: auto;
+  }
+
+  .fines-table {
+    min-width: 900px;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-header h1 {
+    font-size: 28px;
+  }
+
+  .total-unpaid-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 24px;
+  }
+
+  .total-amount {
+    font-size: 36px;
+  }
+
+  .fines-info {
+    padding: 24px;
+  }
+
+  .modal-content {
+    width: 95%;
+  }
+}
