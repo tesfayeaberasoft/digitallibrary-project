@@ -22,17 +22,6 @@ const Transactions = () => {
     fetchTransactions();
   }, [fetchTransactions]);
 
-  const fetchTransactions = async () => {
-    try {
-      const response = await transactionsAPI.getUserTransactions(user.id);
-      setTransactions(response.data.data.transactions);
-    } catch (error) {
-      console.error('Failed to fetch transactions:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   if (loading) {
     return <div className="loading">Loading transactions...</div>;
   }

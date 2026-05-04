@@ -23,17 +23,6 @@ const BookDetails = () => {
     fetchBook();
   }, [fetchBook]);
 
-  const fetchBook = async () => {
-    try {
-      const response = await booksAPI.getById(id);
-      setBook(response.data.data);
-    } catch (error) {
-      console.error('Failed to fetch book:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   if (loading) {
     return <div className="loading">Loading book details...</div>;
   }
