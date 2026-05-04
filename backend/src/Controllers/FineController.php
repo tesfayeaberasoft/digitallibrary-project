@@ -62,7 +62,7 @@ class FineController
     {
         $user = $GLOBALS['auth_user'];
         
-        $total = $this->fineModel->getTotalUnpaid($user['id']);
+        $total = $this->fineModel->getTotalUnpaidFines($user['id']);
         
         return Response::json([
             'success' => true,

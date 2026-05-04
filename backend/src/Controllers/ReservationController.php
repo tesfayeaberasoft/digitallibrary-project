@@ -66,7 +66,7 @@ class ReservationController {
         }
     }
 
-    public function getUserReservations() {
+    public function index() {
         $user = $GLOBALS['auth_user'];
         $status = Request::get('status');
         
