@@ -19,7 +19,7 @@ const Reservations = () => {
       setLoading(true);
       const response = await api.get('/reservations');
       if (response.data.success) {
-        setReservations(response.data.data);
+        setReservations(response.data.data.reservations || []);
       }
     } catch (err) {
       setError('Failed to load reservations');

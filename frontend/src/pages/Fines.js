@@ -24,7 +24,7 @@ const Fines = () => {
       setLoading(true);
       const response = await api.get('/fines');
       if (response.data.success) {
-        setFines(response.data.data);
+        setFines(Array.isArray(response.data.data) ? response.data.data : []);
       }
     } catch (err) {
       setError('Failed to load fines');
