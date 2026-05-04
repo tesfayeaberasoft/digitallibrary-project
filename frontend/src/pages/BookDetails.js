@@ -1,18 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
 import { booksAPI } from '../services/api';
 
 const BookDetails = () => {
   const { id } = useParams();
-  const { user } = useAuth();
   const navigate = useNavigate();
   const [book, setBook] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const fetchBook = useCallback(async () => {
+    try {
+      const response = await booksAPI.getById(id);
+      setBook(response.data.data);
+    } catch (error) {
+      console.error('Failed to fetch book:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, [id]);
+
   useEffect(() => {
     fetchBook();
-  }, [id]);
+  }, [fetchBook]);
 
   const fetchBook = async () => {
     try {

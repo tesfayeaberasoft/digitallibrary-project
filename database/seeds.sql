@@ -3,10 +3,10 @@ USE digital_library;
 
 -- Insert Admin User (password: admin123)
 INSERT INTO users (email, password_hash, first_name, last_name, role, phone, address, status) VALUES
-('admin@library.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Admin', 'User', 'admin', '+251911234567', 'Addis Ababa, Ethiopia', 'active'),
-('librarian@library.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'John', 'Librarian', 'librarian', '+251922345678', 'Addis Ababa, Ethiopia', 'active'),
-('student@library.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Jane', 'Student', 'student', '+251933456789', 'Addis Ababa, Ethiopia', 'active'),
-('staff@library.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Mike', 'Staff', 'staff', '+251944567890', 'Addis Ababa, Ethiopia', 'active');
+('admin@library.com', '$2y$10$gRawgcWXGDo0r1ri8s12nOGmMaO6HTbEevKo1PHcTlR3kAd7eEQ5a', 'Admin', 'User', 'admin', '+251911234567', 'Addis Ababa, Ethiopia', 'active'),
+('librarian@library.com', '$2y$10$gRawgcWXGDo0r1ri8s12nOGmMaO6HTbEevKo1PHcTlR3kAd7eEQ5a', 'John', 'Librarian', 'librarian', '+251922345678', 'Addis Ababa, Ethiopia', 'active'),
+('student@library.com', '$2y$10$gRawgcWXGDo0r1ri8s12nOGmMaO6HTbEevKo1PHcTlR3kAd7eEQ5a', 'Jane', 'Student', 'student', '+251933456789', 'Addis Ababa, Ethiopia', 'active'),
+('staff@library.com', '$2y$10$gRawgcWXGDo0r1ri8s12nOGmMaO6HTbEevKo1PHcTlR3kAd7eEQ5a', 'Mike', 'Staff', 'staff', '+251944567890', 'Addis Ababa, Ethiopia', 'active');
 
 -- Insert Sample Books
 INSERT INTO books (isbn, title, author, category, publisher, publication_year, edition, pages, language, description, total_copies, available_copies, location) VALUES

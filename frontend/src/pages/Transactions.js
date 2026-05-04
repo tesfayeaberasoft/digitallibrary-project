@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { transactionsAPI } from '../services/api';
 
@@ -7,9 +7,20 @@ const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const fetchTransactions = useCallback(async () => {
+    try {
+      const response = await transactionsAPI.getUserTransactions(user.id);
+      setTransactions(response.data.data.transactions);
+    } catch (error) {
+      console.error('Failed to fetch transactions:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, [user.id]);
+
   useEffect(() => {
     fetchTransactions();
-  }, []);
+  }, [fetchTransactions]);
 
   const fetchTransactions = async () => {
     try {

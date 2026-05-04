@@ -9,7 +9,6 @@ const Books = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
-  const [showAddModal, setShowAddModal] = useState(false);
 
   useEffect(() => {
     fetchBooks();
@@ -67,8 +66,8 @@ const Books = () => {
         </form>
 
         {(user.role === 'admin' || user.role === 'librarian') && (
-          <button className="btn btn-success" onClick={() => setShowAddModal(true)}>
-            + Add Book
+          <button className="btn btn-success" disabled>
+            + Add Book (Coming Soon)
           </button>
         )}
       </div>
