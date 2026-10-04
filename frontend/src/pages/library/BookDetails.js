@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { booksAPI } from '../services/api';
+import { booksAPI } from '../../services/api';
 
 const BookDetails = () => {
   const { id } = useParams();

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useAuth } from '../contexts/AuthContext';
-import { transactionsAPI } from '../services/api';
+import { useAuth } from '../../contexts/AuthContext';
+import { transactionsAPI } from '../../services/api';
 
 const Transactions = () => {
   const { user } = useAuth();

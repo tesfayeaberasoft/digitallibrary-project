@@ -1,5 +1,7 @@
 @echo off
 echo Starting Digital Library Frontend...
 echo.
-cd frontend
+SET PATH=C:\Program Files\nodejs;%PATH%
+cd /d "%~dp0..\frontend"
 npm start
+pause

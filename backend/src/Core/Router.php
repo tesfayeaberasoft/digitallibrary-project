@@ -6,6 +6,7 @@ class Router {
     private $routes = [];
     private $middlewares = [];
     private $currentMiddleware = [];
+    private $notFoundHandler = null;
 
     public function get($path, $handler) {
         $this->addRoute('GET', $path, $handler);

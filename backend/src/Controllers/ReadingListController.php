@@ -198,8 +198,8 @@ class ReadingListController
      */
     public function publicLists()
     {
-        $limit = $_GET['limit'] ?? 20);
-        $offset = $_GET['offset'] ?? 0);
+        $limit = $_GET['limit'] ?? 20;
+        $offset = $_GET['offset'] ?? 0;
         
         $lists = $this->readingListModel->getPublicLists($limit, $offset);
         

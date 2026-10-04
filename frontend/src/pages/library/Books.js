@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
-import { booksAPI } from '../services/api';
+import { useAuth } from '../../contexts/AuthContext';
+import { booksAPI } from '../../services/api';
 import './Books.css';
 
 const Books = () => {

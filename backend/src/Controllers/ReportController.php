@@ -99,7 +99,7 @@ class ReportController
             ], 403);
         }
 
-        $limit = $_GET['limit'] ?? 10);
+        $limit = $_GET['limit'] ?? 10;
 
         $stmt = $this->db->prepare("
             SELECT b.*, 
@@ -136,7 +136,7 @@ class ReportController
             ], 403);
         }
 
-        $limit = $_GET['limit'] ?? 10);
+        $limit = $_GET['limit'] ?? 10;
 
         $stmt = $this->db->prepare("
             SELECT u.id, u.name, u.email,
@@ -210,7 +210,7 @@ class ReportController
             ], 403);
         }
 
-        $period = $_GET['period'] ?? 'month'); // day, week, month, year
+        $period = $_GET['period'] ?? 'month'; // day, week, month, year
 
         $dateFormat = match($period) {
             'day' => '%Y-%m-%d',
@@ -305,7 +305,7 @@ class ReportController
             ], 403);
         }
 
-        $months = $_GET['months'] ?? 12);
+        $months = $_GET['months'] ?? 12;
 
         $stmt = $this->db->prepare("
             SELECT DATE_FORMAT(created_at, '%Y-%m') as month,

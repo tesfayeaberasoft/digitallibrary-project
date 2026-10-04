@@ -20,8 +20,8 @@ class ReviewController
      */
     public function bookReviews($bookId)
     {
-        $limit = $_GET['limit'] ?? 20);
-        $offset = $_GET['offset'] ?? 0);
+        $limit = $_GET['limit'] ?? 20;
+        $offset = $_GET['offset'] ?? 0;
         
         $reviews = $this->reviewModel->getBookReviews($bookId, $limit, $offset);
         
