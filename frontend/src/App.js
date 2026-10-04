@@ -2,18 +2,25 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Navbar from './components/Navbar';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Dashboard from './pages/Dashboard';
-import Books from './pages/Books';
-import BookDetails from './pages/BookDetails';
-import Transactions from './pages/Transactions';
-import Reservations from './pages/Reservations';
-import Fines from './pages/Fines';
-import Profile from './pages/Profile';
-import Users from './pages/Users';
-import './App.css';
+
+// Auth / public pages
+import Home from './pages/auth/Home';
+import Login from './pages/auth/Login';
+import Register from './pages/auth/Register';
+
+// Admin pages
+import Dashboard from './pages/admin/Dashboard';
+import Users from './pages/admin/Users';
+
+// Library pages
+import Books from './pages/library/Books';
+import BookDetails from './pages/library/BookDetails';
+import Transactions from './pages/library/Transactions';
+import Reservations from './pages/library/Reservations';
+import Fines from './pages/library/Fines';
+import Profile from './pages/library/Profile';
+
+import './styles/App.css';
 
 // Protected Route Component
 const ProtectedRoute = ({ children, roles }) => {
@@ -53,7 +60,7 @@ function App() {
           <Route path="/" element={<Layout showNavbar={false}><Home /></Layout>} />
           <Route path="/login" element={<Layout showNavbar={false}><Login /></Layout>} />
           <Route path="/register" element={<Layout showNavbar={false}><Register /></Layout>} />
-          
+
           {/* Protected Routes with Navbar */}
           <Route
             path="/dashboard"
@@ -67,7 +74,7 @@ function App() {
               </Layout>
             }
           />
-          
+
           <Route
             path="/books"
             element={
@@ -80,7 +87,7 @@ function App() {
               </Layout>
             }
           />
-          
+
           <Route
             path="/books/:id"
             element={
@@ -93,7 +100,7 @@ function App() {
               </Layout>
             }
           />
-          
+
           <Route
             path="/transactions"
             element={
@@ -106,7 +113,7 @@ function App() {
               </Layout>
             }
           />
-          
+
           <Route
             path="/reservations"
             element={
@@ -119,7 +126,7 @@ function App() {
               </Layout>
             }
           />
-          
+
           <Route
             path="/fines"
             element={
@@ -132,7 +139,7 @@ function App() {
               </Layout>
             }
           />
-          
+
           <Route
             path="/profile"
             element={
@@ -145,7 +152,7 @@ function App() {
               </Layout>
             }
           />
-          
+
           <Route
             path="/users"
             element={
